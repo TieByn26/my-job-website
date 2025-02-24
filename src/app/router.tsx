@@ -186,9 +186,32 @@
                     {
                       path: "my-jobs",
                       lazy: async () => {
-                        const { MyJobRoute } = await import("src/app/routes/app/private/employer/my-job");
-                        return { Component: MyJobRoute }
+                        const { ApplicationsLayout } = await import("src/app/routes/app/private/employer/application-layout");
+                        return { Component: ApplicationsLayout }
                       },
+                      children:[
+                        {
+                          path: "",
+                          lazy: async () => {
+                            const { MyJobRoute } = await import("src/app/routes/app/private/employer/my-job");
+                            return { Component: MyJobRoute }
+                          },
+                        },
+                        {
+                          path: ":id",
+                          lazy: async () => {
+                            const { ApplicationsRoute } = await import("src/app/routes/app/private/employer/application");
+                            return { Component: ApplicationsRoute }
+                          },
+                        },
+                        {
+                          path: ":id/edit",
+                          lazy: async () => {
+                            const { UpdateJobRoute } = await import("src/app/routes/app/private/employer/update-job");
+                            return { Component: UpdateJobRoute }
+                          }
+                        }
+                      ]
                     },
                     {
                       path: "settings",
